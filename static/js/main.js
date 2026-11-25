@@ -1,47 +1,56 @@
 
-const searchInput = document.getElementById("productSearch");
+document.addEventListener("DOMContentLoaded", function () {
 
-const products = document.querySelectorAll(".product-card");
-const categories = document.querySelectorAll(".category-card");
+    // Add to Cart functionality
 
-let selectedCategory = "all";
+    let cartItems = JSON.parse(localStorage.getItem("vyoraCart")) || [];
 
-function filterProducts() {
-    const searchValue = searchInput.value.toLowerCase();
-    let visibleCount = 0;
+    const cartCount = document.getElementById("cartCount");
+    const addToCartButtons = document.querySelectorAll(".product-card button");
 
-    products.forEach(product => {
-        const productName =
-            product.querySelector("h3").textContent.toLowerCase();
-
-        const productCategory = product.dataset.category;
-
-        const matchesSearch = productName.includes(searchValue);
-
-        const matchesCategory =
-            selectedCategory === "all" ||
-            productCategory === selectedCategory;
-
-        if (matchesSearch && matchesCategory) {
-            product.style.display = "block";
-            visibleCount++;
-        } else {
-            product.style.display = "none";
-        }
-    });
-
-    const message = document.getElementById("noProducts");
-
-    if (message) {
-        message.style.display = visibleCount === 0 ? "block" : "none";
+    // Display saved cart count
+    if (cartCount) {
+        cartCount.textContent = cartItems.length;
     }
-}
 
-searchInput.addEventListener("input", filterProducts);
+    addToCartButtons.forEach(button => {
 
-categories.forEach(category => {
-    category.addEventListener("click", () => {
-        selectedCategory = category.dataset.filter;
-        filterProducts();
+        button.addEventListener("click", function () {
+
+            const productCard = button.closest(".product-card");
+
+            const productName =
+                productCard.querySelector("h3").textContent;
+
+const priceText = productCard
+    .querySelector(".price")
+    .childNodes[0].textContent.trim();
+
+const productPrice = Number(
+    priceText.replace(/[^\d.]/g, "")
+);
+            const product = {
+                name: productName,
+                price: productPrice
+            };
+
+            cartItems.push(product);
+
+            localStorage.setItem(
+                "vyoraCart",
+                JSON.stringify(cartItems)
+            );
+
+            if (cartCount) {
+                cartCount.textContent = cartItems.length;
+            }
+
+            alert(productName + " added to cart!");
+
+            console.log("Saved Cart:", cartItems);
+
+        });
+
     });
+
 });

@@ -1,110 +1,268 @@
 
-/* Categories */
 
-.shop-categories,
-.products {
-    padding: 45px 5%;
+/* VYORA - Global Styling */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.shop-categories h2,
-.products h2 {
-    text-align: center;
-    color: #51258b;
-    margin-bottom: 30px;
-    font-size: 28px;
+body {
+    width: 100%;
+    overflow-x: hidden;
+    font-family: Arial, sans-serif;
+    background: #f8f7fc;
+    color: #252238;
 }
 
-.category-grid {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
+/* Navigation Bar */
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 5%;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
     gap: 20px;
 }
 
-.category-card {
-    background: white;
-    padding: 25px 10px;
-    text-align: center;
-    border-radius: 12px;
-    font-size: 35px;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.07);
-}
-
-.category-card h3 {
-    font-size: 15px;
-    margin-top: 12px;
-}
-
-/* Products */
-
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 25px;
-}
-
-.product-card {
-    background: white;
-    padding: 15px;
-    border-radius: 12px;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-}
-
-.product-card img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 8px;
-}
-
-.product-card h3 {
-    margin: 12px 0;
-    font-size: 17px;
-}
-
-.price {
-    color: #51258b;
+.logo {
+    font-size: 30px;
     font-weight: bold;
-    margin-bottom: 8px;
+    color: #51258b;
+    letter-spacing: 2px;
 }
 
-.price del {
-    color: #999;
-    font-weight: normal;
-    margin-left: 8px;
+.search-box {
+    display: flex;
+    flex: 1;
+    max-width: 450px;
 }
 
-.rating {
+.search-box input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px 0 0 6px;
+    outline: none;
+    font-size: 15px;
+}
+
+.search-box button {
+    padding: 12px 20px;
+    border: none;
+    background: #51258b;
+    color: white;
+    border-radius: 0 6px 6px 0;
+    cursor: pointer;
+}
+
+.search-box button:hover {
+    background: #ff8a35;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+.nav-links a:hover {
+    color: #ff8a35;
+}
+
+/* Navigation Categories */
+
+.categories {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding: 15px;
+    background: #51258b;
+}
+
+.categories a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.categories a:hover {
+    color: #ffb36b;
+}
+
+/* Hero Banner */
+
+.hero {
+    min-height: 350px;
+    display: flex;
+    align-items: center;
+    padding: 50px 8%;
+    background: linear-gradient(120deg, #51258b, #241344);
+    color: white;
+}
+
+.hero-content {
+    max-width: 550px;
+}
+
+.hero h1 {
+    font-size: 45px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 18px;
+    line-height: 1.7;
+    margin-bottom: 25px;
+}
+
+.hero button {
+    padding: 14px 30px;
+    background: #ff8a35;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.hero button:hover {
+    background: white;
+    color: #51258b;
+}
+
+/* Welcome Section */
+
+.welcome {
+    text-align: center;
+    padding: 45px 20px;
+}
+
+.welcome h2 {
+    color: #51258b;
+    font-size: 28px;
     margin-bottom: 12px;
 }
 
-.product-card button {
+.welcome p {
+    color: #666;
+    font-size: 17px;
+}
+
+/* Responsive Navbar */
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-wrap: wrap;
+    }
+
+    .search-box {
+        order: 3;
+        max-width: 100%;
+        flex-basis: 100%;
+    }
+
+    .nav-links {
+        gap: 12px;
+    }
+
+    .hero h1 {
+        font-size: 32px;
+    }
+
+    .categories {
+        gap: 15px;
+    }
+
+   .category-grid {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 20px;
     width: 100%;
-    background: #51258b;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 25px;
+    width: 100%;
+}
+}
+
+/* VYORA Shopping Cart */
+
+.cart-section {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.cart-section h1 {
+    margin-bottom: 30px;
+    color: #30205c;
+}
+
+#cartItems > div {
+    background: white;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+}
+
+#cartItems h3 {
+    color: #30205c;
+    margin-bottom: 10px;
+}
+
+#cartItems p {
+    margin-bottom: 12px;
+    color: #555;
+}
+
+.remove-btn {
+    background: #e74c3c;
     color: white;
     border: none;
-    padding: 12px;
+    padding: 9px 18px;
     border-radius: 6px;
     cursor: pointer;
 }
 
-.product-card button:hover {
-    background: #ff8a35;
+.remove-btn:hover {
+    background: #c0392b;
 }
 
-/* Responsive */
-
-@media (max-width: 768px) {
-    .category-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-
-    .product-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+.cart-summary {
+    background: white;
+    padding: 25px;
+    margin-top: 25px;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
 }
 
-@media (max-width: 420px) {
-    .product-grid {
-        grid-template-columns: 1fr;
-    }
+.cart-summary h2 {
+    color: #30205c;
+    margin-bottom: 15px;
+}
+
+.cart-summary button {
+    background: #ff8c32;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 7px;
+    cursor: pointer;
+    margin-top: 15px;
+    font-weight: bold;
 }

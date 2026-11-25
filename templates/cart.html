@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>VYORA | My Shopping Cart</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <!-- Cart Header -->
+    <header class="navbar">
+        <div class="logo">VYORA</div>
+
+        <div class="nav-links">
+            <a href="/">Continue Shopping</a>
+        </div>
+    </header>
+
+    <!-- Shopping Cart -->
+    <section class="cart-section">
+
+        <h1>My Shopping Cart 🛒</h1>
+
+        <div id="cartItems">
+            <!-- Cart products will appear here -->
+        </div>
+
+        <div class="cart-summary">
+            <h2>Order Summary</h2>
+
+            <p>Total Items: <span id="totalItems">0</span></p>
+
+            <h3>Total Amount: ₹<span id="totalAmount">0</span></h3>
+
+            <button id="checkoutBtn">Proceed to Checkout</button>
+        </div>
+
+    </section>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    let cartItems = JSON.parse(
+        localStorage.getItem("vyoraCart")
+    ) || [];
+
+    const cartContainer = document.getElementById("cartItems");
+    const totalItems = document.getElementById("totalItems");
+    const totalAmount = document.getElementById("totalAmount");
+
+    function displayCart() {
+
+        cartContainer.innerHTML = "";
+
+        let total = 0;
+
+        cartItems.forEach(function (product, index) {
+
+            total += product.price;
+
+            const item = document.createElement("div");
+
+            item.innerHTML = `
+                <h3>${product.name}</h3>
+                <p>Price: ₹${product.price}</p>
+                <button class="remove-btn" data-index="${index}">
+                    Remove
+                </button>
+                <hr>
+            `;
+
+            cartContainer.appendChild(item);
+        });
+
+        totalItems.textContent = cartItems.length;
+        totalAmount.textContent = total;
+
+        if (cartItems.length === 0) {
+            cartContainer.innerHTML = "<p>Your cart is empty!</p>";
+        }
+
+        // Remove product
+        const removeButtons = document.querySelectorAll(".remove-btn");
+
+        removeButtons.forEach(function (button) {
+
+            button.addEventListener("click", function () {
+
+                const index = Number(button.dataset.index);
+
+                cartItems.splice(index, 1);
+
+                localStorage.setItem(
+                    "vyoraCart",
+                    JSON.stringify(cartItems)
+                );
+
+                displayCart();
+            });
+        });
+    }
+
+    displayCart();
+
+});
+</script>
+</body>
+</html>
